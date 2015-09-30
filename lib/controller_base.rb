@@ -44,12 +44,12 @@ class ControllerBase
 
   def render_template(template_name)
     direc_path = File.dirname(__FILE__)
-    controller_folder = self.class.name.underscore.chomp("_controller")
+    controller_name = self.class.name.underscore.chomp("_controller")
 
     template_path = File.join(
       ## TODO: double check if two sets of dots.
       direc_path, "..", "..",
-      "views", controller_folder,
+      "views", controller_name,
       "#{template_name}.html.erb"
     )
 
