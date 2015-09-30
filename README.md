@@ -6,13 +6,15 @@ Uses Ruby meta-programming abilities to recreate some of the basic functionality
 
 ControllerBase class provides similar functionality as ActionController::Base in Rails.
 
- **render_content(content, content_type)** and **redirect_to(url)**
- These methods provide controller actions to build out the HTTP response and cause the desired content to be rendered.
+**render_content(content, content_type)** and **redirect_to(url)**
+
+These methods provide controller actions to build out the HTTP response and cause the desired content to be rendered.
 
 **render_template(template_name)**
+
 RailsLite supports rendering using erb templates. This method constructs a path to the appropriate template file:
 
-code(
+'code(
   direc_path = File.dirname(__FILE__)
   controller_name = self.class.name.underscore.chomp("_controller")
 
@@ -21,7 +23,7 @@ code(
     "views", controller_name,
     "#{template_name}.html.erb"
   )
-)
+)'
 
 As in Rails, the application is expected to have a "views" folder that contains folders that correspond to the names of the controllers in the application. These folders, in turn, may contain erb templates that correspond to controller actions (such as "new", "show", "index", etc) and will direct the displaying of content on the page.
 
