@@ -1,0 +1,11 @@
+<form action="/users" method="POST">
+  <label>Name
+    <input type="text" name="user[name]" value="<%= @user.name %>">
+  </label>
+
+  <label>Owner
+    <input type="text" name="user[owner]" value="<%= @user.owner %>">
+  </label>
+
+  <input type="submit">
+</form>

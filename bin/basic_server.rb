@@ -9,7 +9,8 @@ server = WEBrick::HTTPServer.new(Port: 3000)
 
 #mount_proc will run when request comes in
 server.mount_proc("/") do |request, response|
-  MyController.new(request, response).go
+  response.content_type = "text/text"
+  response.body = request.path
 end
 
 trap('INT') do
@@ -17,10 +18,3 @@ trap('INT') do
 end
 
 server.start
-
-
-class MyController < Phase2::ControllerBase
-  def go
-    render: show
-  end
-end

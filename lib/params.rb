@@ -11,7 +11,7 @@ class Params
     @params.merge!(route_params)
 
     if req.body
-      @params.merge(parse_www_encoded_form(req.body))
+      @params.merge!(parse_www_encoded_form(req.body))
     end
 
     if req.query_string
@@ -29,10 +29,7 @@ class Params
     @params.to_s
   end
 
-  class AttributeNotFoundError < ArgumentError; end;
-
-user[address][street] => "main",
-# user[address][zip] => "89"
+  # class AttributeNotFoundError < ArgumentError; end;
 
   private
   #will handle deeply nested hashes

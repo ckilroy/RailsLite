@@ -2,6 +2,7 @@ require 'active_support'
 require 'active_support/core_ext'
 require 'erb'
 require_relative './session'
+require_relative './params'
 
 class ControllerBase
   attr_reader :req, :res, :params
@@ -47,8 +48,7 @@ class ControllerBase
     controller_name = self.class.name.underscore.chomp("_controller")
 
     template_path = File.join(
-      ## TODO: double check if two sets of dots.
-      direc_path, "..", "..",
+      direc_path, "..",
       "views", controller_name,
       "#{template_name}.html.erb"
     )

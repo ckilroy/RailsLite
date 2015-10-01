@@ -1,47 +1,47 @@
 require 'webrick'
-require_relative '../lib/phase3/controller_base'
+require_relative '../lib/controller_base'
 
-describe Phase3::ControllerBase do
+describe ControllerBase do
   before(:all) do
-    class CatsController < Phase3::ControllerBase
+    class UsersController < ControllerBase
       def index
-        @cats = ["GIZMO"]
+        @users = ["Me"]
       end
     end
   end
-  after(:all) { Object.send(:remove_const, "CatsController") }
+  after(:all) { Object.send(:remove_const, "UsersController") }
 
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
   let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
-  let(:cats_controller) { CatsController.new(req, res) }
+  let(:users_controller) { UsersController.new(req, res) }
 
-  describe "#render" do
+  describe "#render_template" do
     before(:each) do
-      cats_controller.render(:index)
+      users_controller.render_template(:index)
     end
 
     it "renders the html of the index view" do
-      expect(cats_controller.res.body).to include("ALL THE CATS")
-      expect(cats_controller.res.body).to include("<h1>")
-      expect(cats_controller.res.content_type).to eq("text/html")
+      expect(users_controller.res.body).to include("ALL THE USERS")
+      expect(users_controller.res.body).to include("<h1>")
+      expect(users_controller.res.content_type).to eq("text/html")
     end
 
     describe "#already_built_response?" do
-      let(:cats_controller2) { CatsController.new(req, res) }
+      let(:users_controller2) { UsersController.new(req, res) }
 
       it "is false before rendering" do
-        expect(cats_controller2.already_built_response?).to be_falsey
+        expect(users_controller2.already_built_response?).to be_falsey
       end
 
       it "is true after rendering content" do
-        cats_controller2.render(:index)
-        expect(cats_controller2.already_built_response?).to be_truthy
+        users_controller2.render_template(:index)
+        expect(users_controller2.already_built_response?).to be_truthy
       end
 
       it "raises an error when attempting to render twice" do
-        cats_controller2.render(:index)
+        users_controller2.render_template(:index)
         expect do
-          cats_controller2.render(:index)
+          users_controller2.render_template(:index)
         end.to raise_error
       end
     end
