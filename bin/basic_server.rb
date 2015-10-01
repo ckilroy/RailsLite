@@ -7,10 +7,8 @@ require 'webrick'
 
 server = WEBrick::HTTPServer.new(Port: 3000)
 
-#mount_proc will run when request comes in
 server.mount_proc("/") do |request, response|
-  response.content_type = "text/text"
-  response.body = request.path
+  #code to run when request comes in
 end
 
 trap('INT') do

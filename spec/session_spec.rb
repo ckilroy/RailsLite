@@ -58,30 +58,30 @@ end
 
 describe ControllerBase do
   before(:all) do
-    class CatsController < ControllerBase
+    class UsersController < ControllerBase
     end
   end
-  after(:all) { Object.send(:remove_const, "CatsController") }
+  after(:all) { Object.send(:remove_const, "UsersController") }
 
   let(:req) { WEBrick::HTTPRequest.new(Logger: nil) }
   let(:res) { WEBrick::HTTPResponse.new(HTTPVersion: '1.0') }
-  let(:cats_controller) { CatsController.new(req, res) }
+  let(:users_controller) { UsersController.new(req, res) }
 
   describe "#session" do
     it "returns a session instance" do
-      expect(cats_controller.session).to be_a(Session)
+      expect(users_controller.session).to be_a(Session)
     end
 
     it "returns the same instance on successive invocations" do
-      first_result = cats_controller.session
-      expect(cats_controller.session).to be(first_result)
+      first_result = users_controller.session
+      expect(users_controller.session).to be(first_result)
     end
   end
 
   shared_examples_for "storing session data" do
     it "should store the session data" do
-      cats_controller.session['test_key'] = 'test_value'
-      cats_controller.send(method, *args)
+      users_controller.session['test_key'] = 'test_value'
+      users_controller.send(method, *args)
       cookie = res.cookies.find { |c| c.name == 'rails_lite_app' }
       h = JSON.parse(cookie.value)
       expect(h['test_key']).to eq('test_value')

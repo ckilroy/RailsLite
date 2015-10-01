@@ -29,8 +29,6 @@ class Params
     @params.to_s
   end
 
-  # class AttributeNotFoundError < ArgumentError; end;
-
   private
   #will handle deeply nested hashes
   def parse_www_encoded_form(www_encoded_form)
